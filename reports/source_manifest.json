@@ -1,0 +1,14 @@
+{
+  "stats.csv": {
+    "url": "https://raw.githubusercontent.com/DylanBaut/MMA_Data_Analysis/aa04256dd35102c0d489b62ed13b58e04a5c471f/UFC.csv",
+    "sha256": "9da0f37fc196c79887541f8c924e867e9b8218f915edba2e5e182ed33e0c4538"
+  },
+  "scores.csv": {
+    "url": "https://raw.githubusercontent.com/DylanBaut/MMA_Data_Analysis/aa04256dd35102c0d489b62ed13b58e04a5c471f/decisions.csv",
+    "sha256": "ffba73008b0e40fe6193233fe5813319dfbfec34e49565649c083989ab218bec"
+  },
+  "metadata.csv": {
+    "url": "https://raw.githubusercontent.com/komaksym/UFC-DataLab/3268146c05211de9deab8b9b4c0bb4a954815f0b/data/merged_stats_n_scorecards/merged_stats_n_scorecards.csv",
+    "sha256": "ce16d7e6e06d5d96208182826327b617dc3675aced242fd8e9f2fd5779ede99c"
+  }
+}

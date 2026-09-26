@@ -1,0 +1,221 @@
+{
+  "selected_model": "boosted_trees",
+  "selection_rule": "Minimum validation Brier score; candidates fixed before testing",
+  "target": "At least one judge differs on round winner (tie is a third outcome)",
+  "validation": {
+    "constant": {
+      "average_precision": 0.1901608325449385,
+      "brier": 0.1557857245819481,
+      "log_loss": 0.49169762821865287,
+      "roc_auc": 0.5,
+      "precision_at_20": 0.15
+    },
+    "strike_gap": {
+      "average_precision": 0.24649686306551014,
+      "brier": 0.1510139624573048,
+      "log_loss": 0.4716444924015259,
+      "roc_auc": 0.6262118147579858,
+      "precision_at_20": 0.35
+    },
+    "logistic": {
+      "average_precision": 0.31215134277643825,
+      "brier": 0.14627135509870184,
+      "log_loss": 0.45131078615110326,
+      "roc_auc": 0.7235551215883199,
+      "precision_at_20": 0.2
+    },
+    "boosted_trees": {
+      "average_precision": 0.3193575299438743,
+      "brier": 0.1423586572087109,
+      "log_loss": 0.43994237534165426,
+      "roc_auc": 0.7231075928767376,
+      "precision_at_20": 0.35
+    }
+  },
+  "test": {
+    "constant": {
+      "average_precision": 0.21889191643960038,
+      "brier": 0.17116131748142727,
+      "log_loss": 0.5260221818499194,
+      "roc_auc": 0.5,
+      "precision_at_20": 0.25
+    },
+    "strike_gap": {
+      "average_precision": 0.2762252462286422,
+      "brier": 0.16655563773370505,
+      "log_loss": 0.5088265060613045,
+      "roc_auc": 0.6158906687252726,
+      "precision_at_20": 0.25
+    },
+    "logistic": {
+      "average_precision": 0.3810658970810114,
+      "brier": 0.15644807483048495,
+      "log_loss": 0.47534175619011176,
+      "roc_auc": 0.7147592396024318,
+      "precision_at_20": 0.5
+    },
+    "boosted_trees": {
+      "average_precision": 0.371345531025229,
+      "brier": 0.15750461997977538,
+      "log_loss": 0.48087029061591613,
+      "roc_auc": 0.701850332915179,
+      "precision_at_20": 0.5
+    }
+  },
+  "splits": {
+    "train": {
+      "rounds": 4281,
+      "fights": 1387,
+      "start": "2009-03-07",
+      "end": "2020-03-07",
+      "prevalence": 0.2324223312310208
+    },
+    "validation": {
+      "rounds": 1057,
+      "fights": 331,
+      "start": "2020-03-14",
+      "end": "2021-10-16",
+      "prevalence": 0.1901608325449385
+    },
+    "test": {
+      "rounds": 1101,
+      "fights": 347,
+      "start": "2021-10-23",
+      "end": "2023-06-17",
+      "prevalence": 0.21889191643960038
+    }
+  },
+  "bootstrap_95pct": {
+    "brier": [
+      0.14657739159757122,
+      0.17029749422530907
+    ],
+    "average_precision": [
+      0.32063562578999,
+      0.4337974075253176
+    ],
+    "brier_improvement_vs_closeness": [
+      0.0034719159190662856,
+      0.01475482697733971
+    ]
+  },
+  "bootstrap_note": "400 paired bootstrap samples by fight; conditional on this fitted model. Event clustering and selection uncertainty are not covered.",
+  "calibration": {
+    "predicted": [
+      0.04616308445085153,
+      0.09793766412637377,
+      0.17792516358841623,
+      0.2812988653284694,
+      0.35958480084743855,
+      0.4456467695011662
+    ],
+    "observed": [
+      0.043478260869565216,
+      0.09836065573770492,
+      0.1793478260869565,
+      0.31693989071038253,
+      0.2677595628415301,
+      0.4076086956521739
+    ]
+  },
+  "feature_importance": [
+    {
+      "feature": "sig_landed_gap",
+      "mean_brier_increase": 0.018366364035177423,
+      "std": 0.0030115351720080667
+    },
+    {
+      "feature": "control_seconds_gap",
+      "mean_brier_increase": 0.004304992552542755,
+      "std": 0.0009110288031023196
+    },
+    {
+      "feature": "sig_landed_total",
+      "mean_brier_increase": 0.0028352534635898707,
+      "std": 0.0009113151611308859
+    },
+    {
+      "feature": "striking_grappling_conflict",
+      "mean_brier_increase": 0.002474581008510726,
+      "std": 0.0010265733691078895
+    },
+    {
+      "feature": "head_landed_gap",
+      "mean_brier_increase": 0.0015972154699938844,
+      "std": 0.0006261065453130098
+    },
+    {
+      "feature": "takedowns_gap",
+      "mean_brier_increase": 0.0012559404534798896,
+      "std": 0.0007751468260469539
+    },
+    {
+      "feature": "sig_attempted_total",
+      "mean_brier_increase": 0.0011718525131860086,
+      "std": 0.0003033837214578929
+    },
+    {
+      "feature": "knockdowns_total",
+      "mean_brier_increase": 0.0008564015708580674,
+      "std": 0.0002395483554422366
+    },
+    {
+      "feature": "sig_attempted_gap",
+      "mean_brier_increase": 0.0004952435799638443,
+      "std": 0.00032830694567198706
+    },
+    {
+      "feature": "control_seconds_total",
+      "mean_brier_increase": 0.00029252689023948617,
+      "std": 0.000319132429873129
+    },
+    {
+      "feature": "accuracy_gap",
+      "mean_brier_increase": 0.0002802967915108229,
+      "std": 0.0003962980268986293
+    },
+    {
+      "feature": "knockdowns_gap",
+      "mean_brier_increase": 0.00021145829974516807,
+      "std": 0.00015314084540535655
+    },
+    {
+      "feature": "sub_attempts_total",
+      "mean_brier_increase": 8.354860520875252e-05,
+      "std": 2.6020234324684325e-05
+    },
+    {
+      "feature": "takedowns_total",
+      "mean_brier_increase": -2.115982618109413e-05,
+      "std": 0.00013450427099810468
+    },
+    {
+      "feature": "sub_attempts_gap",
+      "mean_brier_increase": -4.955527717304398e-05,
+      "std": 6.003582346840532e-05
+    },
+    {
+      "feature": "round",
+      "mean_brier_increase": -9.536514861320233e-05,
+      "std": 8.505133295534989e-05
+    },
+    {
+      "feature": "head_landed_total",
+      "mean_brier_increase": -0.0003197402694354812,
+      "std": 0.0002153362412319765
+    }
+  ],
+  "local_latency_ms": {
+    "median": 5.468771007144824,
+    "p95": 7.820335605356376,
+    "note": "50 warm single-row feature+inference calls; excludes network/UI, not a production SLA"
+  },
+  "versions": {
+    "python": "3.14.6",
+    "sklearn": "1.9.1"
+  },
+  "artifact_integrity": {
+    "data/processed/rounds.csv": "37dd7dca8fa016a8d111279d23d17c90e1613dea3ab7c0b1fb5e927d5378a674",
+    "artifacts/model.joblib": "881694409baadad5f62c70808f33ce0a17bd275c289b0459897006cc626f3679"
+  }
+}

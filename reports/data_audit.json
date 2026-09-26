@@ -1,0 +1,11 @@
+{
+  "candidate_pairs": 2360,
+  "accepted_fights": 2065,
+  "excluded_Round scores do not reconstruct totals": 25,
+  "excluded_ambiguous_or_missing_pair": 241,
+  "excluded_Point deduction": 11,
+  "excluded_Scorecards disagree across sources": 8,
+  "excluded_Not a full standard decision": 10,
+  "rounds": 6439,
+  "disagreements": 1437
+}
