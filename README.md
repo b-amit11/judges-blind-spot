@@ -2,11 +2,11 @@
 
 **Which MMA rounds are likely to divide the judges?** A working post-round review tool, built with Python, scikit-learn and Streamlit. It estimates disagreement among three judges, not the correct winner or the likelihood of corruption.
 
-Status: **working local research MVP**. Real-data pipeline, four-model comparison, trained artifact, interactive demo, automated tests, and source audit. No public deployment or GitHub remote has been created. Docker and CI definitions are provided; Docker has not been run and remote CI has not executed.
+Status: **research prototype with a working local demo**. Includes a reproducible data pipeline, four-model comparison, interactive review interface, automated tests, and source audit. Model artifacts are generated locally. Docker and GitHub Actions configurations are included; the Docker build has not yet been validated.
 
 ## Start here
 
-Read [START_HERE.md](START_HERE.md) for the beginner walkthrough, demo script and September 30 preparation plan. On the original computer, double-click `Start Demo.command` or open http://127.0.0.1:8501 while the server is running.
+The Streamlit app provides a ranked review queue, a hypothetical-round sandbox, and an evaluation dashboard. Follow the setup commands below to generate the data and model locally, then open http://localhost:8501.
 
 On another machine (Python 3.12+):
 
@@ -82,6 +82,10 @@ Local warm feature+inference timing was about 5.5 ms median / 7.8 ms p95 over 50
 
 This is a selected subset of decision fights. Excluding ambiguous names, rematches, point deductions and broken records can bias results. Aggregate counts cannot fully represent effective damage, timing or submission danger. A 20-round source check supports ingestion correctness for that small targeted sample; it is not a full independent audit against commission originals. Current UFC generalization and user usefulness remain untested.
 
-## After the career fair
+## Future work
 
-Obtain clearly licensed current round data; reserve an untouched test period; audit commission scorecard originals; measure review usefulness with analysts; compare event-clustered intervals and weight-class slices; study calibration; then consider serving/monitoring infrastructure. Public deployment awaits a clear data-distribution basis and a hosting destination.
+- Evaluate on a recent, untouched test period using data with explicit redistribution permissions.
+- Expand label verification against original commission scorecards.
+- Report event-clustered uncertainty and performance by weight class.
+- Assess probability calibration and review usefulness with analysts.
+- Validate container deployment and add operational monitoring before public hosting.
