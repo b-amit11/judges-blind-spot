@@ -1,0 +1,158 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "judges-blind-spot"
+version = "0.1.0"
+description = "Post-round MMA judge-disagreement analysis research prototype"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    {name = "Amit Bhattarai", email = "amit7111019@gmail.com"}
+]
+keywords = ["mma", "judges", "analysis", "machine-learning", "streamlit"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+]
+
+dependencies = [
+    "pandas>=2.2,<4",
+    "numpy>=2,<3",
+    "scikit-learn>=1.6,<2",
+    "streamlit>=1.45,<2",
+    "joblib>=1.4,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<10",
+    "pytest-cov>=4.1,<5",
+    "black>=24.1,<25",
+    "ruff>=0.16,<1",
+    "isort>=5.13,<6",
+    "mypy>=1.8,<2",
+    "pre-commit>=3.6,<4",
+]
+
+[project.urls]
+Repository = "https://github.com/b-amit11/judges-blind-spot"
+"Bug Tracker" = "https://github.com/b-amit11/judges-blind-spot/issues"
+Documentation = "https://github.com/b-amit11/judges-blind-spot#readme"
+
+[tool.setuptools]
+packages = ["blindspot"]
+
+[tool.setuptools.package-data]
+blindspot = ["py.typed"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--strict-markers --tb=short"
+markers = [
+    "integration: integration tests requiring trained artifacts or downloaded data",
+    "unit: unit tests with no external dependencies",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | reports
+  | artifacts
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+skip_gitignore = true
+known_first_party = ["blindspot"]
+skip = [".venv", "reports", "artifacts"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [
+    ".git",
+    ".venv",
+    "build",
+    "dist",
+    "reports",
+    "artifacts",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "UP",   # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (black handles this)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["blindspot"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_calls = true
+disallow_any_generics = false
+strict_optional = true
+warn_unused_ignores = true
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["joblib.*", "pandas.*", "numpy.*", "sklearn.*"]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["blindspot"]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+precision = 2

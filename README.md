@@ -2,7 +2,16 @@
 
 **Which MMA rounds are likely to divide the judges?** A working post-round review tool, built with Python, scikit-learn and Streamlit. It estimates disagreement among three judges, not the correct winner or the likelihood of corruption.
 
-Status: **research prototype with a working local demo**. Includes a reproducible data pipeline, four-model comparison, interactive review interface, automated tests, and source audit. Model artifacts are generated locally. Docker and GitHub Actions configurations are included; the Docker build has not yet been validated.
+Status: **research prototype with a working local demo**. Includes a reproducible data pipeline, four-model comparison, interactive review interface, automated tests, and source audit. Model artifacts are generated locally. Docker and GitHub Actions configurations are included. The Docker image has been built and run locally (health check, review queue and sandbox inference verified); it has not been deployed to a hosted environment.
+
+To run in Docker, train locally first (the image copies `artifacts/` and `reports/`), then:
+
+```bash
+docker build -t judges-blind-spot .
+docker run -p 8501:8501 judges-blind-spot
+```
+
+The image includes data-derived predictions; see [THIRD_PARTY.md](THIRD_PARTY.md) before pushing it to a public registry.
 
 ## Start here
 
@@ -21,6 +30,18 @@ streamlit run app.py
 ```
 
 The data command downloads three pinned public CSVs. Internet access is needed initially. After training, the demo works locally without downloading data again. `requirements-lock.txt` records the actual tested Python 3.14 environment; other Python/platform combinations may need `requirements.txt` and retraining. Never load an untrusted joblib/pickle artifact.
+
+## Development
+
+```bash
+pip install -e ".[dev]"
+pre-commit install
+make lint     # black, isort, ruff, mypy --strict
+make format   # apply black, isort and ruff fixes
+make test
+```
+
+CI runs the same lint checks and the unit tests on every push and pull request.
 
 ## Actual benchmark
 

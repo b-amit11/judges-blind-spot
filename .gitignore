@@ -8,3 +8,7 @@ reports/test_predictions.csv
 reports/audit_sample.csv
 reports/failures.csv
 .DS_Store
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+.coverage
