@@ -66,8 +66,14 @@ def download() -> None:
     for name, url in SOURCES.items():
         path = raw / name
         if not path.exists():
-            with urlopen(url, timeout=60) as response:
-                content = response.read()
+            try:
+                with urlopen(url, timeout=60) as response:
+                    content = response.read()
+            except OSError as exc:
+                raise RuntimeError(
+                    f"Could not download {name} from {url} ({exc}). "
+                    "The first data build needs internet access; later runs reuse data/raw/."
+                ) from exc
             if len(content) < 1000:
                 raise ValueError(f"Unexpected download for {name}")
             path.write_bytes(content)
@@ -143,7 +149,7 @@ def build() -> pd.DataFrame:
                     "round": r,
                     "weight_class": meta["bout_type"],
                     "target": disagreement(signed),
-                    **{f"judge_{j+1}_margin": signed[j] for j in range(3)},
+                    **{f"judge_{j + 1}_margin": signed[j] for j in range(3)},
                 }
                 for side in "AB":
                     for metric, source in METRICS.items():

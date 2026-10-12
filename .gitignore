@@ -11,4 +11,4 @@ reports/failures.csv
 *.egg-info/
 .mypy_cache/
 .ruff_cache/
-.coverage
+.coverage*

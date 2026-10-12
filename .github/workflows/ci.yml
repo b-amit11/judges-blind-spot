@@ -21,6 +21,6 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -e ".[dev]"
-      - run: python -m pytest -q
+      - run: python -m pytest -q --cov --cov-report=term-missing
 # CI runs synthetic contract tests without downloading third-party data.
 # Local integration tests also exercise the trained artifact and Streamlit app.

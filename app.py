@@ -28,9 +28,12 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-if not (ROOT / "artifacts/model.joblib").exists():
+REQUIRED = ["artifacts/model.joblib", "reports/test_predictions.csv", "reports/metrics.json"]
+missing = [name for name in REQUIRED if not (ROOT / name).exists()]
+if missing:
     st.info(
-        "Build the real-data model first: python -m blindspot.data && python -m blindspot.train"
+        f"Missing {', '.join(missing)}. Build the real-data model first: "
+        "python -m blindspot.data && python -m blindspot.train"
     )
     st.stop()
 
@@ -57,7 +60,7 @@ b.metric("Average precision", f"{score['average_precision']:.3f}")
 c.metric("Disagreement prevalence", f"{data.target.mean():.1%}")
 d.metric("Top 20 review precision", f"{score['precision_at_20']:.0%}")
 st.caption(
-    f"Historical test period: {data.date.min()}–{data.date.max()}. Model: {bundle['name'].replace('_',' ')}. Estimates are not judgments of scoring correctness."
+    f"Historical test period: {data.date.min()}–{data.date.max()}. Model: {bundle['name'].replace('_', ' ')}. Estimates are not judgments of scoring correctness."
 )
 review, sandbox, evidence = st.tabs(
     ["01 / Review queue", "02 / Round sandbox", "03 / Evidence & limitations"]
@@ -77,7 +80,9 @@ with review:
     idx = st.selectbox(
         "Choose a held-out round",
         choices,
-        format_func=lambda i: f"{data.loc[i,'fighter_a']} vs {data.loc[i,'fighter_b']} · R{data.loc[i,'round']} · {data.loc[i,'date']} · {data.loc[i,'probability']:.0%}",
+        format_func=lambda i: (
+            f"{data.loc[i, 'fighter_a']} vs {data.loc[i, 'fighter_b']} · R{data.loc[i, 'round']} · {data.loc[i, 'date']} · {data.loc[i, 'probability']:.0%}"
+        ),
     )
     row = data.loc[idx]
     left, right = st.columns([1, 2])
@@ -86,7 +91,7 @@ with review:
         st.write(f"**{row.fighter_a}** vs **{row.fighter_b}**")
         st.caption(f"Round {row['round']} · {row.event}")
         st.caption(
-            f"Input summary: significant-strike gap {abs(row.a_sig_landed-row.b_sig_landed):.0f}; control-time gap {abs(row.a_control_seconds-row.b_control_seconds):.0f}s. Global feature importance is in Evidence; these differences are not a causal explanation."
+            f"Input summary: significant-strike gap {abs(row.a_sig_landed - row.b_sig_landed):.0f}; control-time gap {abs(row.a_control_seconds - row.b_control_seconds):.0f}s. Global feature importance is in Evidence; these differences are not a causal explanation."
         )
         _, notices = predict(bundle, data.loc[[idx]])
         if notices[0]["outside_training_range"] or notices[0]["missing_features"]:
@@ -125,11 +130,15 @@ with review:
             "Statistics describe activity, not the full impact of strikes or submission threats. Control is in seconds."
         )
     with st.expander("View the ranked review queue"):
-        st.dataframe(
-            shown[["date", "fighter_a", "fighter_b", "round", "probability"]].head(100),
-            hide_index=True,
-            width="stretch",
+        queue = shown[["date", "event", "fighter_a", "fighter_b", "round", "probability"]]
+        st.dataframe(queue.head(100), hide_index=True, width="stretch")
+        st.download_button(
+            f"Download full queue ({len(queue):,} rounds, CSV)",
+            queue.to_csv(index=False),
+            "review_queue.csv",
+            "text/csv",
         )
+        st.caption("Export excludes observed judge outcomes.")
 
 with sandbox:
     st.subheader("Change the round. Inspect the estimate.")
