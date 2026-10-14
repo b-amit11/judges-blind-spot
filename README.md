@@ -1,5 +1,7 @@
 # Judge’s Blind Spot
 
+[![CI](https://github.com/b-amit11/judges-blind-spot/actions/workflows/ci.yml/badge.svg)](https://github.com/b-amit11/judges-blind-spot/actions/workflows/ci.yml)
+
 **Which MMA rounds are likely to divide the judges?** A working post-round review tool, built with Python, scikit-learn and Streamlit. It estimates disagreement among three judges, not the correct winner or the likelihood of corruption.
 
 Status: **research prototype with a working local demo**. Includes a reproducible data pipeline, four-model comparison, interactive review interface, automated tests, and source audit. Model artifacts are generated locally. Docker and GitHub Actions configurations are included. The Docker image has been built and run locally (health check, review queue and sandbox inference verified); it has not been deployed to a hosted environment.
